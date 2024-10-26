@@ -36,7 +36,7 @@ import { NavLink } from "react-router-dom";
 import CustomAlertDialog from "../shared/AlertDialog";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import CustomModal from "../shared/CustomModal";
-import { getCategoryId, getCategoryList, handleFileUpload } from "../utils/functions";
+import {  getCategoryList, handleFileUpload } from "../utils/functions";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
 interface IProps {}
@@ -62,7 +62,6 @@ const DashboardProductsTable = ({}: IProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [productToEdit, setProductToEdit] = useState<IProduct>(emptyProduct);
   const [categoriesList, setCategoriesList] = useState<ICat[]>([]);
-  const [CategorySetting,setCategorySetting]=useState({})
   const [IdEditProduct, setIdEditProduct] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -97,9 +96,8 @@ const DashboardProductsTable = ({}: IProps) => {
     if (thumbnail) {
       let categoryId = AssignCategory();
       let fileId = await handleFileUpload(thumbnail);
-      console.log(CategorySetting)
       UpdateProduct({
-        id: productToEdit.documentId,
+        id: IdEditProduct,
         body: {
           data: {
             title: productToEdit.title,
